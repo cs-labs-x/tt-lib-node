@@ -1,0 +1,21 @@
+name: ci
+
+# This repository is public, so it is also built on pull requests — unlike
+# the 55 private repos, there is no Actions quota of the organisation to
+# protect here, and this is the dependency of all of them: it is worth
+# knowing whether a PR breaks it before merging.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci
+      - run: npm test
